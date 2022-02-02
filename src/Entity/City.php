@@ -36,6 +36,9 @@ class City
     #[ORM\OneToMany(mappedBy: 'city', targetEntity: Country::class)]
     private $country;
 
+    #[ORM\ManyToOne(targetEntity: Activity::class, inversedBy: 'city')]
+    private $activity;
+
     public function __construct()
     {
         $this->country = new ArrayCollection();
@@ -144,6 +147,18 @@ class City
                 $country->setCity(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActivity(): ?Activity
+    {
+        return $this->activity;
+    }
+
+    public function setActivity(?Activity $activity): self
+    {
+        $this->activity = $activity;
 
         return $this;
     }
