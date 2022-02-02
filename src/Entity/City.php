@@ -39,6 +39,9 @@ class City
     #[ORM\ManyToOne(targetEntity: Activity::class, inversedBy: 'city')]
     private $activity;
 
+    #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'city')]
+    private $hotel;
+
     public function __construct()
     {
         $this->country = new ArrayCollection();
@@ -159,6 +162,18 @@ class City
     public function setActivity(?Activity $activity): self
     {
         $this->activity = $activity;
+
+        return $this;
+    }
+
+    public function getHotel(): ?Hotel
+    {
+        return $this->hotel;
+    }
+
+    public function setHotel(?Hotel $hotel): self
+    {
+        $this->hotel = $hotel;
 
         return $this;
     }
