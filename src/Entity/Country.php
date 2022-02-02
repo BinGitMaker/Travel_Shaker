@@ -43,6 +43,9 @@ class Country
     #[ORM\Column(type: 'text', nullable: true)]
     private $links;
 
+    #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'country')]
+    private $city;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -164,6 +167,18 @@ class Country
     public function setLinks(?string $links): self
     {
         $this->links = $links;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
