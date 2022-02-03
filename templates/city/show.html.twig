@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Villes{% endblock %}
+
+{% block body %}
+<h1 class="text-center my-5">{{ city.name }}</h1>
+
+<section class="containerleft container">
+<div class="countrymap">
+    <img src="{{ city.picture }}" class="img-fluid" />
+</div>
+<div class="bodytext">{{ city.date }}</div>
+<div class="bodytext">{{ city.content }}</div>
+</section>
+<section class="containerright container">
+    <h2 class="program">Programme de la visite</h2>
+    <h3 class="duration">{{ city.duration }}jours sur place</h3>
+    <div class-"cityActivity">
+        <ul>
+        {% for activity in activities %}
+        <li class="activities">{{ city.activity }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class-"cityHotel">
+        <ul>
+        {% for hotel in hotels %}
+        <li class="hotels">{{ city.hotel }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class-"cityResto">
+        <ul>
+        {% for resto in restos %}
+        <li class="restos">{{ city.resto }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <ul>
+        <li>{{ city.id }}</li>
+        <li>{{ city.duration }}</li>
+        <li>{{ city.diving }}</li>
+    </ul>
+    
+</section>
+
+{% endblock %}
