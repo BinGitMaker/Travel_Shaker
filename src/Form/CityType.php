@@ -7,6 +7,7 @@ use App\Entity\Hotel;
 use App\Entity\Resto;
 use App\Entity\Activity;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,9 +46,10 @@ class CityType extends AbstractType
             ],
             )
             ->add('content',
-            TextareaType::class,
+            CKEditorType::class,
             [
                 'label' => 'Contenu de la page',
+                'config_name' => 'full',
                 'attr' => ['rows' => '10'],
             ],
             )
