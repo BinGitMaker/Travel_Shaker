@@ -1,0 +1,19 @@
+.TravelHome {
+    min-height: 60vh;
+    min-width: 60vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.TravelHome::before {
+    content:"";
+    opacity: 0.25;
+    background-color: rgba(0,0,0,0.25);
+}
+
+.mainHome {
+    padding-block: 6rem;
+    padding-inline: 2rem;
+}
+
+

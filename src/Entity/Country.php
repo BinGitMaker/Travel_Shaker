@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CountryRepository;
+use App\Entity\City;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+use App\Repository\CountryRepository;
 
 #[ORM\Entity(repositoryClass: CountryRepository::class)]
 class Country
@@ -45,6 +48,9 @@ class Country
 
     #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'country')]
     private $city;
+
+    #[ORM\Column(type: 'string', length: 45, nullable: true)]
+    private $bye;
 
     public function getId(): ?int
     {
@@ -179,6 +185,18 @@ class Country
     public function setCity(?City $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getBye(): ?string
+    {
+        return $this->bye;
+    }
+
+    public function setBye(?string $bye): self
+    {
+        $this->bye = $bye;
 
         return $this;
     }

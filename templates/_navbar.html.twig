@@ -1,0 +1,26 @@
+<nav class="navbar row p-2 px-3 navbar-light navbar-expand-lg bg-secondary fixed-top shadow">
+    <div class="container col-2 justify-content-center"><a class="navbar-brand ps-5 fs-2 logo ms-lg-0" href="{{ path('home') }}">TRAVEL SHAKER</a>
+    </div>
+    <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav">
+        <span class="visually-hidden">Toggle navigation</span>
+        <span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav ">
+            {% set links = [
+                {'title': 'Accueil', 'path': 'home'},
+                {'title': 'Ma Check-list', 'path': 'home'},
+                {'title': 'Mes Applis Voyage', 'path': 'home'},
+                {'title': 'Destinations', 'path': 'country_index'}
+            ] %}
+            {% for link in links %}
+                <li class="nav-item mx-4 my-auto">
+                    <a class="nav-link text-decoration-none mb-0 h4 hover {{ app.request.pathinfo == path(link.path) ? 'active' }}"
+                            {{ app.request.pathinfo == path(link.path) ? 'aria-current="page"' }} href="{{ path(link.path) }}">
+                        {{ link.title }}
+                    </a>
+                </li>
+            {% endfor %}
+            
+        </ul>
+    </div>
+</nav>

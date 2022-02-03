@@ -10,3 +10,13 @@ import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
+
+window.bootstrap = require('bootstrap');
+
+window.onscroll = () => {
+    if (window.scrollY > 350) {
+        btn.classList.add('show');
+    } else {
+        btn.classList.remove('show');
+    }
+};
