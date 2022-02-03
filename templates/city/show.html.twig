@@ -1,48 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Villes{% endblock %}
+{% block title %}City{% endblock %}
 
 {% block body %}
-<h1 class="text-center my-5">{{ city.name }}</h1>
+    <h1>City</h1>
 
-<section class="containerleft container">
-<div class="countrymap">
-    <img src="{{ city.picture }}" class="img-fluid" />
-</div>
-<div class="bodytext">{{ city.date }}</div>
-<div class="bodytext">{{ city.content }}</div>
-</section>
-<section class="containerright container">
-    <h2 class="program">Programme de la visite</h2>
-    <h3 class="duration">{{ city.duration }}jours sur place</h3>
-    <div class-"cityActivity">
-        <ul>
-        {% for activity in activities %}
-        <li class="activities">{{ city.activity }}</li>
-        {% endfor %}
-        </ul>
-    </div>
-    <div class-"cityHotel">
-        <ul>
-        {% for hotel in hotels %}
-        <li class="hotels">{{ city.hotel }}</li>
-        {% endfor %}
-        </ul>
-    </div>
-    <div class-"cityResto">
-        <ul>
-        {% for resto in restos %}
-        <li class="restos">{{ city.resto }}</li>
-        {% endfor %}
-        </ul>
-    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ city.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ city.name }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ city.date ? city.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Picture</th>
+                <td>{{ city.picture }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ city.duration }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ city.content }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ city.slug }}</td>
+            </tr>
+        </tbody>
+    </table>
 
-    <ul>
-        <li>{{ city.id }}</li>
-        <li>{{ city.duration }}</li>
-        <li>{{ city.diving }}</li>
-    </ul>
-    
-</section>
+    <a href="{{ path('city_index') }}">back to list</a>
 
+    <a href="{{ path('city_edit', {'id': city.id}) }}">edit</a>
+
+    {{ include('city/_delete_form.html.twig') }}
 {% endblock %}
