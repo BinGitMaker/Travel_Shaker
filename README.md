@@ -7,8 +7,7 @@ Subjet: My Personnal Travelog
 @2022-Travel Shaker by BinGitMaker
 
 <p> Here is my BDD
-  <a><img align="right" alt="Bdd_Travel_Shaker" width="300" src="https://ibb.co/gmGYBcf">
-</a></br>
+  <a href="https://ibb.co/gmGYBcf"><img src="https://i.ibb.co/0mk5dz6/Bdd-Travel-Shaker.png" alt="Bdd-Travel-Shaker" border="0"></a>
 </p>
 
 Have a look on the Mock-up:
