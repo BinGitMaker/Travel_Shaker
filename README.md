@@ -12,3 +12,5 @@ Subjet: My Personnal Travelog
 
 Have a look on the Mock-up:
 https://www.figma.com/file/LDuGAXTlVHm246myjiGxV7/TravelMockUp?node-id=0%3A1
+
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=BinGitMaker&langs_count=5&theme=panda&show_icons=true)](https://github.com/BinGitMaker/github-readme-stats)
