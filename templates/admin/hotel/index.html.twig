@@ -1,39 +1,32 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Hotel index{% endblock %}
 
 {% block body %}
-    <h1>Hotel index</h1>
+    <h1 class="d-flex justify-content-center text-secondary">HOTELS</h1>
+    <div class="container my-2 my-lg-5">
+        <div class="row d-flex flex-lg-row justify-content-center">
+        <a href="{{ path('admin_hotel_new') }}" class="btn btn-light fs-4 text-secondary col-12 col-lg-5 col-xl-3 py-3 mb-4 mb-lg-0">{{ 'NOUVEL HOTEL'|trans }}</a>
+        </div>
+      </div>
+      
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Picture</th>
-                <th>Url</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<section class="container">
+	<div class="row justify-content-around">
         {% for hotel in hotels %}
-            <tr>
-                <td>{{ hotel.id }}</td>
-                <td>{{ hotel.name }}</td>
-                <td>{{ hotel.picture }}</td>
-                <td>{{ hotel.url }}</td>
-                <td>
-                    <a href="{{ path('hotel_show', {'id': hotel.id}) }}">show</a>
-                    <a href="{{ path('hotel_edit', {'id': hotel.id}) }}">edit</a>
-                </td>
-            </tr>
+        <div class=" col-lg-4">
+            <a href="{{ path('admin_hotel_edit', {'id': hotel.id}) }}" class="rounded-pill justify-content-center bg-secondary shadow d-block mb-2 mb-lg-4 p-2 p-md-4 p-lg-5 fs-lg-2 fs-4 text-uppercase text-white text-decoration-none text-center">
+                {{ hotel.name }}
+            </a>
+        </div>
         {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <tr>
+            <td colspan="13">no records found</td>
+        </tr>
+      {% endfor %}
+    </div>
+</section>
 
-    <a href="{{ path('hotel_new') }}">Create new</a>
 {% endblock %}
+   
+                

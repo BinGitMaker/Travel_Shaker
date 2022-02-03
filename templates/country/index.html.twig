@@ -40,7 +40,7 @@
                 <td>{{ country.bye }}</td>
                 <td>
                     <a href="{{ path('country_show', {'id': country.id}) }}">show</a>
-                    <a href="{{ path('country_edit', {'id': country.id}) }}">edit</a>
+                   
                 </td>
             </tr>
         {% else %}
@@ -51,5 +51,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('country_new') }}">Create new</a>
+    
 {% endblock %}

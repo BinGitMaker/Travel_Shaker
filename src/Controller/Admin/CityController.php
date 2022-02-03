@@ -5,20 +5,31 @@ namespace App\Controller\Admin;
 use App\Entity\City;
 use App\Form\CityType;
 use App\Repository\CityRepository;
+use App\Repository\HotelRepository;
+use App\Repository\RestoRepository;
+use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/city', name: 'city_')]
 class CityController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(CityRepository $cityRepository): Response
+    public function index(
+        CityRepository $cityRepository,
+        ActivityRepository $activityRepository,
+        HotelRepository $hotelRepository,
+        RestoRepository $restoRepository,
+        ): Response
     {
         return $this->render('admin/city/index.html.twig', [
             'cities' => $cityRepository->findAll(),
+            'activities' => $activityRepository->findAll(),
+            'hotels' => $hotelRepository->findAll(),
+            'restos' => $restoRepository->findAll(),
         ]);
     }
 
@@ -51,10 +62,10 @@ class CityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('city_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_city_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('city/edit.html.twig', [
+        return $this->renderForm('admin/city/edit.html.twig', [
             'city' => $city,
             'form' => $form,
         ]);
