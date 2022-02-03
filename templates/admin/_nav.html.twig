@@ -1,18 +1,19 @@
-<nav class="main-nav">
-    <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+<nav class="main-nav bg-secondary">
+    <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 250px;">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
-            <svg class="bi me-2" width="40" height="32">
-                <use xlink:href="#bootstrap"></use>
-            </svg>
-            <span class="fs-4">Travel Shaker</span>
+            
+            <span class="fs-3 text-white">TRAVEL SHAKER</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             {% set links = [
                 {'title': 'ACCUEIL', 'path': 'admin_home_index'},
-                {'title': 'MA CHECKLIST', 'path': 'admin_home_index'},
-                {'title': 'MES APPLIS VOYAGES', 'path': 'admin_home_index'},
-                {'title': 'DESTINATIONS', 'path': 'admin_home_index'},
+                
+                {'title': 'DESTINATIONS', 'path': 'admin_country_index'},
+                {'title': 'VILLES', 'path': 'admin_city_index'},
+                {'title': 'HOTELS', 'path': 'admin_hotel_index'},
+                {'title': 'ACTIVITES', 'path': 'admin_activity_index'},
+                {'title': 'RESTAURANTS', 'path': 'admin_resto_index'},
             ] %}
             {% for link in links %}
                 <li class="nav-item">

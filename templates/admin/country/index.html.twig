@@ -1,55 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Country index{% endblock %}
 
 {% block body %}
-    <h1>Country index</h1>
+    <h1 class="d-flex justify-content-center text-secondary">DESTINATIONS</h1>
+    <div class="container my-2 my-lg-5">
+        <div class="row d-flex flex-lg-row justify-content-center">
+        <a href="{{ path('admin_country_new') }}" class="btn btn-light fs-4 text-secondary col-12 col-lg-5 col-xl-3 py-3 mb-4 mb-lg-0">{{ 'NOUVELLE DESTINATION'|trans }}</a>
+        </div>
+      </div>
+      
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Duration</th>
-                <th>Hello</th>
-                <th>Thanku</th>
-                <th>Picture</th>
-                <th>Diving</th>
-                <th>Content</th>
-                <th>Slug</th>
-                <th>Links</th>
-                <th>Bye</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<section class="container">
+	<div class="row justify-content-around">
         {% for country in countries %}
-            <tr>
-                <td>{{ country.id }}</td>
-                <td>{{ country.name }}</td>
-                <td>{{ country.date ? country.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ country.duration }}</td>
-                <td>{{ country.hello }}</td>
-                <td>{{ country.thanku }}</td>
-                <td>{{ country.picture }}</td>
-                <td>{{ country.diving }}</td>
-                <td>{{ country.content }}</td>
-                <td>{{ country.slug }}</td>
-                <td>{{ country.links }}</td>
-                <td>{{ country.bye }}</td>
-                <td>
-                    <a href="{{ path('country_show', {'id': country.id}) }}">show</a>
-                    <a href="{{ path('country_edit', {'id': country.id}) }}">edit</a>
-                </td>
-            </tr>
+        <div class=" col-lg-4">
+            <a href="{{ path('admin_country_edit', {'id': country.id}) }}" class="rounded-pill justify-content-center bg-secondary shadow d-block mb-2 mb-lg-4 p-2 p-md-4 p-lg-5 fs-lg-2 fs-4 text-uppercase text-white text-decoration-none text-center">
+                {{ country.name }}
+            </a>
+        </div>
         {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <tr>
+            <td colspan="13">no records found</td>
+        </tr>
+      {% endfor %}
+    </div>
+</section>
 
-    <a href="{{ path('country_new') }}">Create new</a>
 {% endblock %}

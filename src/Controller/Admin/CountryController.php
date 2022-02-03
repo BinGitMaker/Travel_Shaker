@@ -4,21 +4,26 @@ namespace App\Controller\Admin;
 
 use App\Entity\Country;
 use App\Form\CountryType;
+use App\Repository\CityRepository;
 use App\Repository\CountryRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/country', name: 'country_')]
 class CountryController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(CountryRepository $countryRepository): Response
+    public function index(
+        CountryRepository $countryRepository,
+        CityRepository $cityRepository,
+        ): Response
     {
         return $this->render('admin/country/index.html.twig', [
             'countries' => $countryRepository->findAll(),
+            'cities' => $cityRepository->findAll(),
         ]);
     }
 
@@ -43,7 +48,11 @@ class CountryController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Country $country, EntityManagerInterface $entityManager): Response
+    public function edit(
+        Request $request, 
+        Country $country, 
+        EntityManagerInterface $entityManager
+        ): Response
     {
         $form = $this->createForm(CountryType::class, $country);
         $form->handleRequest($request);
@@ -51,7 +60,7 @@ class CountryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin/country_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_country_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/country/edit.html.twig', [

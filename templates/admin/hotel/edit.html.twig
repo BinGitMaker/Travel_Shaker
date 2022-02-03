@@ -1,13 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Edit Hotel{% endblock %}
 
 {% block body %}
-    <h1>Edit Hotel</h1>
+    <h1>Modifier l'hotel</h1>
 
-    {{ include('hotel/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('admin/hotel/_form.html.twig', {'button_label': 'Valider'}) }}
 
-    <a href="{{ path('hotel_index') }}">back to list</a>
+    <a href="{{ path('admin_hotel_index') }}">Retour à la liste des hotels</a>
 
-    {{ include('hotel/_delete_form.html.twig') }}
+    {{ include('admin/hotel/_delete_form.html.twig') }}
 {% endblock %}
