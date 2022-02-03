@@ -12,6 +12,10 @@ admin:
     prefix: '/admin'
     name_prefix: 'admin_'
 
+home:
+    resource: '../../src/Controller/HomeController.php'
+    type: annotation
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation
