@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Country;
+use App\Entity\City;
 use App\Form\CountryType;
+use App\Form\CityType;
 use App\Repository\CountryRepository;
+use App\Repository\CityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +18,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class CountryController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(CountryRepository $countryRepository): Response
+    public function index(
+        CountryRepository $countryRepository,
+        ): Response
     {
         return $this->render('country/index.html.twig', [
             'countries' => $countryRepository->findAll(),
@@ -23,10 +28,14 @@ class CountryController extends AbstractController
     }
 
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(Country $country): Response
+    public function show(
+        Country $country,
+        CityRepository $cityRepository,
+        ): Response
     {
         return $this->render('country/show.html.twig', [
             'country' => $country,
+            'cities' => $cityRepository->findAll(),
         ]);
     }
 }
