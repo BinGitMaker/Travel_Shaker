@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New Country{% endblock %}
+
+{% block body %}
+    <h1>Ajoutez une nouvelle destination</h1>
+
+    {{ include('admin/country/_form.html.twig') }}
+
+    <a href="{{ path('admin_country_index') }}">retour a la liste des pays</a>
+{% endblock %}

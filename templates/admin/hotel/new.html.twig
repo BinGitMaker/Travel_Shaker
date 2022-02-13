@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New Hotel{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un nouvel hotel</h1>
+
+    {{ include('admin/hotel/_form.html.twig') }}
+
+    <a href="{{ path('admin_hotel_index') }}">retour à la liste des hotels</a>
+{% endblock %}

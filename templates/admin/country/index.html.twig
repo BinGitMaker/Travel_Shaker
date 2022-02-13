@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Country index{% endblock %}
+
+{% block body %}
+    <h1 class="d-flex justify-content-center text-secondary">DESTINATIONS</h1>
+    <div class="container my-2 my-lg-5">
+        <div class="row d-flex flex-lg-row justify-content-center">
+        <a href="{{ path('admin_country_new') }}" class="btn btn-light fs-4 text-secondary col-12 col-lg-5 col-xl-3 py-3 mb-4 mb-lg-0">{{ 'NOUVELLE DESTINATION'|trans }}</a>
+        </div>
+      </div>
+      
+
+<section class="container">
+	<div class="row justify-content-around">
+        {% for country in countries %}
+        <div class=" col-lg-4">
+            <a href="{{ path('admin_country_edit', {'id': country.id}) }}" class="rounded-pill justify-content-center bg-secondary shadow d-block mb-2 mb-lg-4 p-2 p-md-4 p-lg-5 fs-lg-2 fs-4 text-uppercase text-white text-decoration-none text-center">
+                {{ country.name }}
+            </a>
+        </div>
+        {% else %}
+        <tr>
+            <td colspan="13">no records found</td>
+        </tr>
+      {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

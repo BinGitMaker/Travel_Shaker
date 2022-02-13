@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\City;
 use App\Entity\Country;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -48,10 +49,23 @@ class CountryType extends AbstractType
                 'label' => 'Merci en local',
             ],
             )
+            ->add('bye',
+            TextType::class,
+            [
+                'label' => 'Au revoir en local',
+            ],
+            )
             ->add('picture',
             TextType::class,
             [
                 'label' => 'Photo de la ville (clic-droit: copier l\'adresse de l\'image)',
+            ],
+            )
+            ->add(
+                'alt',
+                TextType::class,
+            [
+                'label' => 'Texte alternatif à l\'image',
             ],
             )
             ->add('diving',
@@ -61,33 +75,23 @@ class CountryType extends AbstractType
             ],
             )
             ->add('content',
-            TextareaType::class,
+            CKEditorType::class,
             [
                 'label' => 'Contenu de la page',
+                'config_name' => 'full',
                 'attr' => ['rows' => '10'],
             ],
             )
             ->add('slug')
             ->add('links',
-            TextareaType::class,
+            CKEditorType::class,
             [
                 'label' => 'lien amis',
-                'attr' => ['rows' => '10'],
+                'config_name' => 'light',
+                'attr' => ['rows' => '3'],
             ],
             )
-            ->add('bye',
-            TextType::class,
-            [
-                'label' => 'Au revoir en local',
-            ],
-            )
-            ->add('city',
-            EntityType::class,
-            [
-                'label' => 'Ville associée',
-                'class' => City::class,
-            ],
-            )
+            
         ;
     }
 

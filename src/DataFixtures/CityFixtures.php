@@ -3,43 +3,42 @@
 namespace App\DataFixtures;
 
 use DateTime;
-use App\Entity\City;
-use App\Entity\Country;
 use Faker\Factory;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\City;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
-class CityFixtures extends Fixture
+class CityFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const CITYNUMS = 6;
+    public const CITYNUMS = 4;
 
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
+        $slugger = new AsciiSlugger();
         for ($i = 0; $i < self::CITYNUMS; $i++) {
-        $city = new city();
-        $city->setName($faker->name());
-        /* $city->setDate($faker->dateTimeBetween('-15 years', 'now')); */
+        $city = new City();
+        $name = $faker->name();
+        $city->setName($faker->city());
+        $city->setDate($faker->dateTimeBetween('-30 years', 'now'));
         $city->setDuration(2);
         $city->setPicture('https://fakeimg.pl/350x200/?text=city ' . $i);
+        $city->setAlt($faker->text());
         $city->setContent($faker->realtext());
-        /* $city->setSlug($slugger->slug($name)); */
-        /* $city->setActivity($this->getReference('activity.name' . rand(1,5))); */
-        /* $city->setResto($this->getReference('activity.resto' . rand(1,5))); */
-        /* $city->setHotel($this->getReference('hotel.name' . rand(1,5))); */
+        $city->setSlug($slugger->slug($name));
+        $city->setCountry($this->getReference('country_' . $i));
         $manager->persist($city);
+        $this->setReference('city_' . $i, $city); 
         }
         $manager->flush();
     }
 
-   /*  public function getDependencies()
+    public function getDependencies()
     {
         return [
-            ActivityFixtures::class,
-            RestoFixtures::class,
-            HotelFixtures::class,
-
+            CountryFixtures::class,
         ];
-    } */
-
+    }
 }

@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\City;
 use App\Repository\ActivityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
+
 
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
 class Activity
@@ -24,13 +28,11 @@ class Activity
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $picture;
 
-    #[ORM\OneToMany(mappedBy: 'activity', targetEntity: City::class)]
-    private $city;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $alt;
 
-    public function __construct()
-    {
-        $this->city = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'activities')]
+    private $city;
 
     public function getId(): ?int
     {
@@ -73,33 +75,44 @@ class Activity
         return $this;
     }
 
-    /**
-     * @return Collection|City[]
-     */
-    public function getCity(): Collection
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(string $alt): self
+    {
+        $this->alt = $alt;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
     {
         return $this->city;
     }
 
-    public function addCity(City $city): self
+    public function setCity(?City $city): self
     {
-        if (!$this->city->contains($city)) {
-            $this->city[] = $city;
-            $city->setActivity($this);
-        }
+        $this->city = $city;
 
         return $this;
     }
-
-    public function removeCity(City $city): self
+    
+    public function getSlug(): ?string
     {
-        if ($this->city->removeElement($city)) {
-            // set the owning side to null (unless already changed)
-            if ($city->getActivity() === $this) {
-                $city->setActivity(null);
-            }
-        }
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
+    }
+    
+    public function __toString()
+    {
+        return $this->name;
     }
 }

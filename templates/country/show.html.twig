@@ -1,66 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Country{% endblock %}
+{% block title %}PAYS ou Ile{% endblock %}
 
 {% block body %}
-    <h1>Country</h1>
+<h1 class="text-center my-5">{{ country.name }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ country.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ country.name }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ country.date ? country.date|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Duration</th>
-                <td>{{ country.duration }}</td>
-            </tr>
-            <tr>
-                <th>Hello</th>
-                <td>{{ country.hello }}</td>
-            </tr>
-            <tr>
-                <th>Thanku</th>
-                <td>{{ country.thanku }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ country.picture }}</td>
-            </tr>
-            <tr>
-                <th>Diving</th>
-                <td>{{ country.diving }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ country.content }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ country.slug }}</td>
-            </tr>
-            <tr>
-                <th>Links</th>
-                <td>{{ country.links }}</td>
-            </tr>
-            <tr>
-                <th>Bye</th>
-                <td>{{ country.bye }}</td>
-            </tr>
-        </tbody>
-    </table>
+<section class="containertop container">
+<div class="countrymap">
+    <img src="{{ country.picture }}" class="img-fluid" />
+</div>
+<div class-"countrycities">
+    <div class="words">
+        <ul>
+            <li>{{ country.hello }}</li>
+            <li>{{ country.thanku }}</li>
+            <li>{{ country.bye }}</li>
+        </ul>
+    </div>
+    <ul>
+    {% for city in country %}
+    <li class="cities">{{ city.name }}</li>
+    {% endfor %}
+    </ul>
+</div>
+</section>
+<section class="containermiddle container">
+    <ul>
+        <li>{{ country.id }}</li>
+        <li>{{ country.duration }}</li>
+        <li>{{ country.diving }}</li>
+    </ul>
+    <div class="bodytext">{{ country.content }}</div>
+</section>
 
-    <a href="{{ path('country_index') }}">back to list</a>
-
-    <a href="{{ path('country_edit', {'id': country.id}) }}">edit</a>
-
-    {{ include('country/_delete_form.html.twig') }}
 {% endblock %}

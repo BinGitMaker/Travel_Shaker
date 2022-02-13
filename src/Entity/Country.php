@@ -4,9 +4,13 @@ namespace App\Entity;
 
 use App\Entity\City;
 use DateTimeInterface;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\ManyToOne;
 use App\Repository\CountryRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: CountryRepository::class)]
 class Country
@@ -28,11 +32,17 @@ class Country
     #[ORM\Column(type: 'string', length: 45, nullable: true)]
     private $hello;
 
-    #[ORM\Column(type: 'string', length: 45)]
+    #[ORM\Column(type: 'string', length: 45, nullable: true)]
     private $thanku;
+
+    #[ORM\Column(type: 'string', length: 45, nullable: true)]
+    private $bye;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $picture;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $alt;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $diving;
@@ -46,11 +56,13 @@ class Country
     #[ORM\Column(type: 'text', nullable: true)]
     private $links;
 
-    #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'country')]
-    private $city;
+    #[ORM\OneToMany(mappedBy: 'city', targetEntity: City::class)]
+    private Collection $cities;
 
-    #[ORM\Column(type: 'string', length: 45, nullable: true)]
-    private $bye;
+    public function __construct()
+    {
+        $this->cities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -117,6 +129,18 @@ class Country
         return $this;
     }
 
+    public function getBye(): ?string
+    {
+        return $this->bye;
+    }
+
+    public function setBye(?string $bye): self
+    {
+        $this->bye = $bye;
+
+        return $this;
+    }
+
     public function getPicture(): ?string
     {
         return $this->picture;
@@ -125,6 +149,18 @@ class Country
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(string $alt): self
+    {
+        $this->alt = $alt;
 
         return $this;
     }
@@ -177,27 +213,35 @@ class Country
         return $this;
     }
 
-    public function getCity(): ?City
+    /**
+     * @return Collection|City[]
+     */
+    public function getCities(): Collection
     {
-        return $this->city;
+        return $this->cities;
     }
 
-    public function setCity(?City $city): self
+    public function addCity(City $city): self
     {
-        $this->city = $city;
-
+        if (!$this->cities->contains($city)) {
+            $this->cities[] = $city;
+            $city->setCountry($this);
+        }
         return $this;
     }
 
-    public function getBye(): ?string
+    public function removeCity(City $city): self
     {
-        return $this->bye;
-    }
-
-    public function setBye(?string $bye): self
-    {
-        $this->bye = $bye;
-
+        if ($this->cities->removeElement($city)) {
+            // set the owning side to null (unless already changed)
+            if ($city->getCountry() === $this) {
+                $city->setCountry(null);
+            }
+        }
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 }

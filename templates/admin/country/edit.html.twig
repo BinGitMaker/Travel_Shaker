@@ -1,0 +1,32 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edit Country{% endblock %}
+
+{% block body %}
+<h1 class="d-flex justify-content-center text-secondary">{{ country.name }}</h1>
+<a href="{{ path('admin_country_index') }}">Retour à la liste</a>
+
+<section class="container">
+	<div class="row justify-content-around">
+        {% for city in country %}
+        <div class=" col-lg-4">
+            <a href="{{ path('admin_city_edit', {'id': city.id}) }}" class="rounded-pill justify-content-center bg-secondary shadow d-block mb-2 mb-lg-4 p-2 p-md-4 p-lg-5 fs-lg-2 fs-4 text-uppercase text-white text-decoration-none text-center">
+                {{ city.name }}
+            </a>
+        </div>
+        {% else %}
+        <div class="container my-2 my-lg-5">
+            <div class="row d-flex flex-lg-row justify-content-center">
+            <a href="{{ path('admin_city_new') }}" class="btn btn-light fs-5 text-secondary col-12 col-lg-5 col-xl-3 py-1 mb-4 mb-lg-0">{{ 'AJOUTER LA PREMIERE VILLE'|trans }}</a>
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+</section>
+<section class="mx-5">
+    {{ include('admin/country/_form.html.twig', {'button_label': 'Valider'}) }}
+</section>
+
+
+    {{ include('admin/country/_delete_form.html.twig') }}
+{% endblock %}

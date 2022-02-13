@@ -4,15 +4,16 @@ namespace App\Entity;
 
 use App\Entity\Hotel;
 use App\Entity\Resto;
-use DateTimeInterface;
 use App\Entity\Country;
 use App\Entity\Activity;
-use Doctrine\ORM\Mapping as ORM;
+use DateTimeInterface;
 use App\Repository\CityRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CityRepository::class)]
 class City
@@ -28,8 +29,11 @@ class City
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $date;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $picture;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $alt;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $duration;
@@ -40,21 +44,23 @@ class City
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $slug;
 
-    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Country::class)]
-    private $country;
+    #[ORM\ManyToOne(targetEntity: Country::class, inversedBy: 'cities')]
+    private ?Country $country;
 
-    #[ORM\ManyToOne(targetEntity: Activity::class, inversedBy: 'city')]
-    private $activity;
+    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Activity::class)]
+    private Collection $activities;
 
-    #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'city')]
-    private $hotel;
+    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Hotel::class)]
+    private Collection $hotels;
 
-    #[ORM\ManyToOne(targetEntity: Resto::class, inversedBy: 'city')]
-    private $resto;
+    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Resto::class)]
+    private Collection $restos;
 
     public function __construct()
     {
-        $this->country = new ArrayCollection();
+        $this->activities = new ArrayCollection();
+        $this->hotels = new ArrayCollection();
+        $this->restos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,6 +104,18 @@ class City
         return $this;
     }
 
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(string $alt): self
+    {
+        $this->alt = $alt;
+
+        return $this;
+    }
+
     public function getDuration(): ?int
     {
         return $this->duration;
@@ -134,69 +152,111 @@ class City
         return $this;
     }
 
-    /**
-     * @return Collection|Country[]
-     */
-    public function getCountry(): Collection
+    public function getCountry(): ?Country
     {
         return $this->country;
     }
 
-    public function addCountry(Country $country): self
+    public function setCountry(?Country $country): self
     {
-        if (!$this->country->contains($country)) {
-            $this->country[] = $country;
-            $country->setCity($this);
+        $this->country = $country;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+            $activity->setCity($this);
         }
 
         return $this;
     }
 
-    public function removeCountry(Country $country): self
+    public function removeActivity(Activity $activity): self
     {
-        if ($this->country->removeElement($country)) {
+        if ($this->activities->removeElement($activity)) {
             // set the owning side to null (unless already changed)
-            if ($country->getCity() === $this) {
-                $country->setCity(null);
+            if ($activity->getCity() === $this) {
+                $activity->setCity(null);
             }
         }
 
         return $this;
     }
 
-    public function getActivity(): ?Activity
+    /**
+     * @return Collection|Hotel[]
+     */
+    public function getHotels(): Collection
     {
-        return $this->activity;
+        return $this->hotels;
     }
 
-    public function setActivity(?Activity $activity): self
+    public function addHotel(Hotel $hotel): self
     {
-        $this->activity = $activity;
+        if (!$this->hotels->contains($hotel)) {
+            $this->hotels[] = $hotel;
+            $hotel->setCity($this);
+        }
 
         return $this;
     }
 
-    public function getHotel(): ?Hotel
+    public function removeHotel(Hotel $hotel): self
     {
-        return $this->hotel;
-    }
-
-    public function setHotel(?Hotel $hotel): self
-    {
-        $this->hotel = $hotel;
+        if ($this->hotels->removeElement($hotel)) {
+            // set the owning side to null (unless already changed)
+            if ($hotel->getCity() === $this) {
+                $hotel->setCity(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getResto(): ?Resto
+    /**
+     * @return Collection|Resto[]
+     */
+    public function getRestos(): Collection
     {
-        return $this->resto;
+        return $this->restos;
     }
 
-    public function setResto(?Resto $resto): self
+    public function addResto(Resto $resto): self
     {
-        $this->resto = $resto;
+        if (!$this->restos->contains($resto)) {
+            $this->restos[] = $resto;
+            $resto->setCity($this);
+        }
 
         return $this;
+    }
+
+    public function removeResto(Resto $resto): self
+    {
+        if ($this->restos->removeElement($resto)) {
+            // set the owning side to null (unless already changed)
+            if ($resto->getCity() === $this) {
+                $resto->setCity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }
