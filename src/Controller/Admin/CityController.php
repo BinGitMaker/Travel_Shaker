@@ -5,14 +5,15 @@ namespace App\Controller\Admin;
 use App\Entity\City;
 use App\Form\CityType;
 use App\Repository\CityRepository;
-use App\Repository\HotelRepository;
-use App\Repository\RestoRepository;
-use App\Repository\ActivityRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 #[Route('/city', name: 'city_')]
 class CityController extends AbstractController
@@ -20,21 +21,18 @@ class CityController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(
         CityRepository $cityRepository,
-        ActivityRepository $activityRepository,
-        HotelRepository $hotelRepository,
-        RestoRepository $restoRepository,
         ): Response
     {
         return $this->render('admin/city/index.html.twig', [
             'cities' => $cityRepository->findAll(),
-            'activities' => $activityRepository->findAll(),
-            'hotels' => $hotelRepository->findAll(),
-            'restos' => $restoRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(
+        Request $request, 
+        EntityManagerInterface $entityManager,
+        ): Response
     {
         $city = new City();
         $form = $this->createForm(CityType::class, $city);
@@ -54,7 +52,11 @@ class CityController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, City $city, EntityManagerInterface $entityManager): Response
+    public function edit(
+        Request $request, 
+        City $city, 
+        EntityManagerInterface $entityManager
+        ): Response
     {
         $form = $this->createForm(CityType::class, $city);
         $form->handleRequest($request);
@@ -72,7 +74,11 @@ class CityController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, City $city, EntityManagerInterface $entityManager): Response
+    public function delete(
+        Request $request, 
+        City $city, 
+        EntityManagerInterface $entityManager
+        ): Response
     {
         if ($this->isCsrfTokenValid('delete'.$city->getId(), $request->request->get('_token'))) {
             $entityManager->remove($city);

@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\Country;
 use App\Form\CountryType;
-use App\Repository\CityRepository;
 use App\Repository\CountryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,17 +17,18 @@ class CountryController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(
         CountryRepository $countryRepository,
-        CityRepository $cityRepository,
         ): Response
     {
         return $this->render('admin/country/index.html.twig', [
             'countries' => $countryRepository->findAll(),
-            'cities' => $cityRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(
+        Request $request, 
+        EntityManagerInterface $entityManager
+        ): Response
     {
         $country = new Country();
         $form = $this->createForm(CountryType::class, $country);
@@ -69,14 +69,18 @@ class CountryController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, Country $country, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
+    public function delete(
+        Request $request, 
+        Country $country, 
+        EntityManagerInterface $entityManager
+        ): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$country->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $country->getId(), $request->request->get('_token'))) {
             $entityManager->remove($country);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('admin/country_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_country_index', [], Response::HTTP_SEE_OTHER);
     }
 }

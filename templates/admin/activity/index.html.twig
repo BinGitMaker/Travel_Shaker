@@ -3,37 +3,27 @@
 {% block title %}Activity index{% endblock %}
 
 {% block body %}
-    <h1>Activity index</h1>
+<h1 class="d-flex justify-content-center text-secondary">ACTIVITES</h1>
+<div class="container my-2 my-lg-5">
+    <div class="row d-flex flex-lg-row justify-content-center">
+    <a href="{{ path('admin_activity_new') }}" class="btn btn-light fs-4 text-secondary col-12 col-lg-5 col-xl-3 py-3 mb-4 mb-lg-0">{{ 'NOUVELLE ACTIVITÉ'|trans }}</a>
+    </div>
+  </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Duration</th>
-                <th>Picture</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+  <section class="container">
+	<div class="row justify-content-around">
         {% for activity in activities %}
-            <tr>
-                <td>{{ activity.id }}</td>
-                <td>{{ activity.name }}</td>
-                <td>{{ activity.duration }}</td>
-                <td>{{ activity.picture }}</td>
-                <td>
-                    <a href="{{ path('activity_show', {'id': activity.id}) }}">show</a>
-                    <a href="{{ path('activity_edit', {'id': activity.id}) }}">edit</a>
-                </td>
-            </tr>
+        <div class=" col-lg-4">
+            <a href="{{ path('admin_activity_edit', {'id': activity.id}) }}" class="rounded-pill justify-content-center bg-secondary shadow d-block mb-2 mb-lg-4 p-2 p-md-4 p-lg-5 fs-lg-2 fs-4 text-uppercase text-white text-decoration-none text-center">
+                {{ activity.name }}
+            </a>
+        </div>
         {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('activity_new') }}">Create new</a>
+        <tr>
+            <td colspan="13">no records found</td>
+        </tr>
+      {% endfor %}
+    </div>
+</section>
+   
 {% endblock %}

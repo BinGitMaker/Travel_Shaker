@@ -6,10 +6,10 @@ use App\Entity\Hotel;
 use App\Form\HotelType;
 use App\Repository\HotelRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/hotel', name: 'hotel_',)]
 class HotelController extends AbstractController
@@ -51,7 +51,7 @@ class HotelController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('hotel_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_hotel_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/hotel/edit.html.twig', [
@@ -60,14 +60,14 @@ class HotelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Hotel $hotel, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$hotel->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $hotel->getId(), $request->request->get('_token'))) {
             $entityManager->remove($hotel);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('admin/hotel_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_hotel_index', [], Response::HTTP_SEE_OTHER);
     }
 }

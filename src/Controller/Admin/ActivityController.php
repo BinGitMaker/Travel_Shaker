@@ -4,26 +4,36 @@ namespace App\Controller\Admin;
 
 use App\Entity\Activity;
 use App\Form\ActivityType;
+use App\Entity\City;
 use App\Repository\ActivityRepository;
+use App\Repository\CityRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/activity', name: 'activity_')]
 class ActivityController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(ActivityRepository $activityRepository): Response
+    public function index(
+        CityRepository $cityRepository,
+        ActivityRepository $activityRepository
+        ): Response
     {
         return $this->render('admin/activity/index.html.twig', [
             'activities' => $activityRepository->findAll(),
+            'cities' => $cityRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(
+        Request $request, 
+        EntityManagerInterface $entityManager
+        ): Response
     {
         $activity = new Activity();
         $form = $this->createForm(ActivityType::class, $activity);
@@ -49,7 +59,6 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($activity);
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_activity_index', [], Response::HTTP_SEE_OTHER);
@@ -69,6 +78,6 @@ class ActivityController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('admin/activity_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_activity_index', [], Response::HTTP_SEE_OTHER);
     }
 }

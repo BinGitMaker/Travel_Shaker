@@ -49,10 +49,23 @@ class CountryType extends AbstractType
                 'label' => 'Merci en local',
             ],
             )
+            ->add('bye',
+            TextType::class,
+            [
+                'label' => 'Au revoir en local',
+            ],
+            )
             ->add('picture',
             TextType::class,
             [
                 'label' => 'Photo de la ville (clic-droit: copier l\'adresse de l\'image)',
+            ],
+            )
+            ->add(
+                'alt',
+                TextType::class,
+            [
+                'label' => 'Texte alternatif à l\'image',
             ],
             )
             ->add('diving',
@@ -78,19 +91,7 @@ class CountryType extends AbstractType
                 'attr' => ['rows' => '3'],
             ],
             )
-            ->add('bye',
-            TextType::class,
-            [
-                'label' => 'Au revoir en local',
-            ],
-            )
-            ->add('city',
-            EntityType::class,
-            [
-                'label' => 'Ville associée',
-                'class' => City::class,
-            ],
-            )
+            
         ;
     }
 
