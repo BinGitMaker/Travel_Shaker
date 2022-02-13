@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use App\Entity\City;
 use App\Repository\HotelRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 #[ORM\Entity(repositoryClass: HotelRepository::class)]
 class Hotel
@@ -22,15 +25,16 @@ class Hotel
     private $picture;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $alt;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $url;
 
-    #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: City::class)]
+    #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'hotels')]
     private $city;
 
-    public function __construct()
-    {
-        $this->city = new ArrayCollection();
-    }
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $slug;
 
     public function getId(): ?int
     {
@@ -61,6 +65,18 @@ class Hotel
         return $this;
     }
 
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(string $alt): self
+    {
+        $this->alt = $alt;
+
+        return $this;
+    }
+
     public function getUrl(): ?string
     {
         return $this->url;
@@ -73,35 +89,30 @@ class Hotel
         return $this;
     }
 
-    /**
-     * @return Collection|City[]
-     */
-    public function getCity(): Collection
+    public function getCity(): ?City
     {
         return $this->city;
     }
 
-    public function addCity(City $city): self
+    public function setCity(?City $city): self
     {
-        if (!$this->city->contains($city)) {
-            $this->city[] = $city;
-            $city->setHotel($this);
-        }
+        $this->city = $city;
 
         return $this;
     }
 
-    public function removeCity(City $city): self
+    public function getSlug(): ?string
     {
-        if ($this->city->removeElement($city)) {
-            // set the owning side to null (unless already changed)
-            if ($city->getHotel() === $this) {
-                $city->setHotel(null);
-            }
-        }
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
+    
     public function __toString()
     {
         return $this->name;

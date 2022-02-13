@@ -22,7 +22,7 @@ class ActivityController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'activity_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(Activity $activity): Response
     {
         return $this->render('activity/show.html.twig', [

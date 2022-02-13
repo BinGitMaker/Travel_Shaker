@@ -23,8 +23,7 @@
                 <td>{{ resto.picture }}</td>
                 <td>{{ resto.url }}</td>
                 <td>
-                    <a href="{{ path('resto_show', {'id': resto.id}) }}">show</a>
-                    <a href="{{ path('resto_edit', {'id': resto.id}) }}">edit</a>
+                    <a href="{{ path('admin_resto_edit', {'id': resto.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +34,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('resto_new') }}">Create new</a>
+    <a href="{{ path('admin_resto_new') }}">Create new</a>
 {% endblock %}

@@ -24,7 +24,7 @@
                 <td>{{ activity.picture }}</td>
                 <td>
                     <a href="{{ path('activity_show', {'id': activity.id}) }}">show</a>
-                    <a href="{{ path('activity_edit', {'id': activity.id}) }}">edit</a>
+                   
                 </td>
             </tr>
         {% else %}
@@ -34,6 +34,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('activity_new') }}">Create new</a>
 {% endblock %}

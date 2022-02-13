@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Resto;
+use App\Entity\City;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -25,11 +27,25 @@ class RestoType extends AbstractType
             'label' => 'Photo du resto (clic-droit: copier l\'adresse de l\'image)',
         ],
         )
+        ->add('alt',
+        TextType::class,
+        [
+            'label' => 'Texte alternatif à l\'image',
+        ],
+        )
         ->add('url',
         TextType::class,
         [
             'label' => 'lien vers le resto (clic-droit: copier l\'adresse de l\'image)',
         ],
+        )
+        ->add(
+            'city',
+            EntityType::class,
+            [
+                'label' => 'Ville associée',
+                'class' => City::class,
+            ],
         )
         ;
     }
