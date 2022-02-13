@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/activity', name: 'activity_')]
+#[Route('/activity')]
 class ActivityController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET'])]
+    #[Route('/', name: 'activity_index', methods: ['GET'])]
     public function index(ActivityRepository $activityRepository): Response
     {
         return $this->render('activity/index.html.twig', [

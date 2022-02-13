@@ -22,7 +22,6 @@ class CityController extends AbstractController
         ]);
     }
 
-  
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(City $city): Response
     {

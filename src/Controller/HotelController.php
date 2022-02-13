@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/hotel', name: 'hotel_')]
+#[Route('/hotel')]
 class HotelController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET'])]
+    #[Route('/', name: 'hotel_index', methods: ['GET'])]
     public function index(HotelRepository $hotelRepository): Response
     {
         return $this->render('hotel/index.html.twig', [
@@ -22,7 +22,7 @@ class HotelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    #[Route('/{id}', name: 'hotel_show', methods: ['GET'])]
     public function show(Hotel $hotel): Response
     {
         return $this->render('hotel/show.html.twig', [
