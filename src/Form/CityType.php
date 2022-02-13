@@ -71,7 +71,7 @@ class CityType extends AbstractType
             ->add(
                 'slug'
             )
-            ->add(
+            /* ->add(
                 'activity',
                 EntityType::class,
                 [
@@ -97,7 +97,7 @@ class CityType extends AbstractType
                 'mapped' => false,
                 'class' => Resto::class,
                 ],
-            )
+            ) */
             ->add(
                 'country',
                 EntityType::class,

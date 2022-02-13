@@ -6,7 +6,7 @@
 <h1 class="d-flex justify-content-center text-secondary">{{ city.name }}</h1>
 <a href="{{ path('admin_city_index') }}">Retour à la liste</a>
 
-<section class="container">
+{# <section class="container">
 	<div class="row justify-content-around">
         {% for activity in city %}
         <div class="col-lg-4">
@@ -53,7 +53,7 @@
           </div>
       {% endfor %}
     </div>
-</section>
+</section> #}
 <section class="mx-5">
     {{ include('admin/city/_form.html.twig', {'button_label': 'Valider'}) }}
 </section>
