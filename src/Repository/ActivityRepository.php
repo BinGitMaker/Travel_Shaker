@@ -19,6 +19,28 @@ class ActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, Activity::class);
     }
 
+    /**
+     * @param array $cities
+     * @return \Doctrine\ORM\Query
+     */
+    public function findByCity(array $cities)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.city IN (:cities)')
+            ->setParameter('cities', $cities)
+            ->orderBy('a.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function queryFindAll()
+    {
+        return $this->createQueryBuilder('a');
+    }
     // /**
     //  * @return Activity[] Returns an array of Activity objects
     //  */

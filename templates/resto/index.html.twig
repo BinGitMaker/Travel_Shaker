@@ -16,15 +16,15 @@
             </tr>
         </thead>
         <tbody>
-        {% for resto in restos %}
+        {% if city %}
+        {% for city, resto in restos %}
             <tr>
                 <td>{{ resto.id }}</td>
                 <td>{{ resto.name }}</td>
                 <td>{{ resto.picture }}</td>
-                <td>{{ resto.url }}</td>
+                {# <td>{{ resto.url }}</td> #}
                 <td>
-                    <a href="{{ path('resto_show', {'id': resto.id}) }}">show</a>
-                    <a href="{{ path('resto_edit', {'id': resto.id}) }}">edit</a>
+                    <a href="{{ path('resto_show', {'id': resto.id}) }}">show</a>       
                 </td>
             </tr>
         {% else %}
@@ -32,8 +32,9 @@
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
+        {% endif %}
         </tbody>
     </table>
 
-    <a href="{{ path('resto_new') }}">Create new</a>
+   
 {% endblock %}

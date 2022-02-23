@@ -19,6 +19,28 @@ class RestoRepository extends ServiceEntityRepository
         parent::__construct($registry, Resto::class);
     }
 
+    /**
+     * @param array $cities
+     * @return \Doctrine\ORM\Query
+     */
+    public function findByCity(array $cities)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.city IN (:cities)')
+            ->setParameter('cities', $cities)
+            ->orderBy('r.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function queryFindAll()
+    {
+        return $this->createQueryBuilder('r');
+    }
     // /**
     //  * @return Resto[] Returns an array of Resto objects
     //  */

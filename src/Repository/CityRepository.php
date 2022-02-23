@@ -19,6 +19,30 @@ class CityRepository extends ServiceEntityRepository
         parent::__construct($registry, City::class);
     }
 
+    /**
+     * @param array $countries
+     * @return \Doctrine\ORM\Query
+     */
+    public function findByCountry(array $countries)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.country IN (:countries)')
+            ->setParameter('countries', $countries)
+            ->orderBy('c.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function queryFindAll()
+    {
+        return $this->createQueryBuilder('c');
+    }
+
+
     // /**
     //  * @return City[] Returns an array of City objects
     //  */

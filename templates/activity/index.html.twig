@@ -6,17 +6,8 @@
     <h1>Activity index</h1>
 
     <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Duration</th>
-                <th>Picture</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for activity in activities %}
+        {% if city %}
+        {% for city, activity in activities %}
             <tr>
                 <td>{{ activity.id }}</td>
                 <td>{{ activity.name }}</td>
@@ -32,6 +23,7 @@
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
+        {% endif %}
         </tbody>
     </table>
 {% endblock %}
