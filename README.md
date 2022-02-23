@@ -1,9 +1,8 @@
 # Travel_Shaker
-Checkpoint4
 
 <h1>CLONE THE "DEV" BRANCH"</h1>
 
-Hello this is a school exercice.
+Hello this is a personnal project
 
 Subjet: My Personnal Travelog 
 @2022-Travel Shaker by BinGitMaker
