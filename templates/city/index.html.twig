@@ -3,32 +3,30 @@
 {% block title %}City index{% endblock %}
 
 {% block body %}
-    <h1>City index</h1>
-
-    <table class="table">
-       
-        <tbody>
-        {% for city in cities %}
-            <tr>
-                <td>{{ city.id }}</td>
-                <td>{{ city.name }}</td>
-                <td>{{ city.date ? city.date|date('Y-m-d') : '' }}</td>
-                <td>{{ city.picture }}</td>
-                <td>{{ city.duration }}</td>
-                <td>{{ city.content }}</td>
-                <td>{{ city.slug }}</td>
-                <td>
-                    <a href="{{ path('city_show', {'id': city.id}) }}">show</a>
-                 
-                </td>
-            </tr>
-        {% else %}
+    <h1 class="text-center">Programme de visite : </h1>
+    
+    {% if country %}
+    <section class="text-start m-5">
+    {% for country, city in cities %}
+    <h2 class="my-3">
+        <a class="text-decoration-none" href="{{ path('city_show', {'id': city.id}) }}">Ville visitée: {{ city.name }}</a>
+    </h2>
+    <h4>Nombre de jours sur place : {{ city.duration }}jours</h4>
+    <div class="citymap">
+        <img src="{{ city.picture }}" class="img-fluid"/>
+    </div>
+    <ul>
+        <li>{{ city.date ? city.date|date('Y-m-d') : '' }}</li>
+        
+        <li>{{ city.content }}</li>
+    </ul>
+    {% else %}
             <tr>
                 <td colspan="8">no records found</td>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% endfor %}
+    {% endif %}
 
+    </section>
 
 {% endblock %}

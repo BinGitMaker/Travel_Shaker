@@ -6,6 +6,7 @@
 <h1 class="text-center my-5">{{ country.name }}</h1>
 
 <section class="containertop container">
+    <h3>Durée du séjour : {{ country.duration }} jours</h3>
 <div class="countrymap">
     <img src="{{ country.picture }}" class="img-fluid" />
 </div>
@@ -17,22 +18,21 @@
             <li>{{ country.bye }}</li>
         </ul>
     </div>
-    <ul>
+    {# <ul>
     {% for city in country %}
     <li class="cities">{{ city.name }}</li>
     {% endfor %}
-    </ul>
+    </ul> #}
 </div>
 </section>
 <section class="containermiddle container">
     <ul>
-        <li>{{ country.id }}</li>
-        <li>{{ country.duration }}</li>
         <li>{{ country.diving }}</li>
     </ul>
     <div class="bodytext">{{ country.content }}</div>
 </section>
 
 {% include 'city/index.html.twig' %}
+
 
 {% endblock %}

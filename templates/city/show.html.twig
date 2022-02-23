@@ -3,22 +3,27 @@
 {% block title %}Villes{% endblock %}
 
 {% block body %}
-<h1 class="text-center my-5">{{ city.name }}</h1>
+<h1 class="text-center my-5">
+    {{ city.country.name }} :
+     {{ city.name }}</h1>
 
 <section class="containerleft container">
 <div class="countrymap">
     <img src="{{ city.picture }}" class="img-fluid" />
 </div>
-<div class="bodytext">{{ city.date }}</div>
+<div class="bodytext">{# {{ city.date }} #}</div>
 <div class="bodytext">{{ city.content }}</div>
 </section>
 <section class="containerright container">
-    <h2 class="program">Programme de la visite</h2>
-    <h3 class="duration">{{ city.duration }}jours sur place</h3>
-    <div class-"cityActivity">
+    <h2 class="program">Programme de la ville</h2>
+    <h3 class="duration">{{ city.duration }} jours sur place</h3>
+    {% include 'activity/index.html.twig' %}
+    {% include 'hotel/index.html.twig' %}
+    {% include 'resto/index.html.twig' %}
+     {#<div class-"cityActivity">
         <ul>
-        {% for activity in activities %}
-        <li class="activities">{{ city.activity }}</li>
+        {% for activities in city %}
+        <li class="activities">{{ activity.name }}</li>
         {% endfor %}
         </ul>
     </div>
@@ -35,13 +40,7 @@
         <li class="restos">{{ city.resto }}</li>
         {% endfor %}
         </ul>
-    </div>
-
-    <ul>
-        <li>{{ city.id }}</li>
-        <li>{{ city.duration }}</li>
-        <li>{{ city.diving }}</li>
-    </ul>
+    </div> #}
     
 </section>
 

@@ -58,7 +58,7 @@ class CountryType extends AbstractType
             ->add('picture',
             TextType::class,
             [
-                'label' => 'Photo de la ville (clic-droit: copier l\'adresse de l\'image)',
+                'label' => 'Photo du pays (clic-droit: copier l\'adresse de l\'image)',
             ],
             )
             ->add(

@@ -2,23 +2,29 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
 use App\Entity\Activity;
 use App\Form\ActivityType;
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/activity')]
+#[Route('/activity', name: 'activity_')]
 class ActivityController extends AbstractController
 {
-    #[Route('/', name: 'activity_index', methods: ['GET'])]
-    public function index(ActivityRepository $activityRepository): Response
+    #[Route('/', name: 'index', methods: ['GET'])]
+    public function index(
+        ActivityRepository $activityRepository,
+        Activity $activity,
+        City $city,
+        ): Response
     {
         return $this->render('activity/index.html.twig', [
-            'activities' => $activityRepository->findAll(),
+            'activities' => $activityRepository->findByCity(),
+            'activity' => $activity,
         ]);
     }
 

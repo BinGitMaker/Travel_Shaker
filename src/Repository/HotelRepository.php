@@ -19,6 +19,29 @@ class HotelRepository extends ServiceEntityRepository
         parent::__construct($registry, Hotel::class);
     }
 
+    /**
+     * @param array $cities
+     * @return \Doctrine\ORM\Query
+     */
+    public function findByCity(array $cities)
+    {
+        return $this->createQueryBuilder('h')
+            ->andWhere('h.city IN (:cities)')
+            ->setParameter('cities', $cities)
+            ->orderBy('h.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function queryFindAll()
+    {
+        return $this->createQueryBuilder('h');
+    }
+
     // /**
     //  * @return Hotel[] Returns an array of Hotel objects
     //  */
