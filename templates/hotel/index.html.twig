@@ -3,37 +3,24 @@
 {% block title %}Hotel index{% endblock %}
 
 {% block body %}
-    <h1>Hotel index</h1>
+    <p class="h3 my-4">Où dormir</p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Picture</th>
-                <th>Url</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <section class=" text-start m-3">
         {% if city %}
         {% for city, hotel in hotels %}
-            <tr>
-                <td>{{ hotel.id }}</td>
-                <td>{{ hotel.name }}</td>
-                <td>{{ hotel.picture }}</td>
-               {#  <td>{{ hotel.url }}</td> #}
-                <td>
-                    <a href="{{ path('hotel_show', {'id': hotel.id}) }}">show</a>
-                </td>
-            </tr>
+                <div class="card align-items-center opacity-75 justify-content-center ActivityPic position-relative mt-3" alt=" {{ hotel.alt }}" style="background-image: url( '{{ hotel.picture }}' )">
+                    {# <img class="card-img-top" src="{{ activity.picture }}" alt="Card image cap"> #}
+                    <div class="position-relative card-body  p-0">
+                      <div class="card-title h4 text-center text-secondary" >{{ hotel.name }}</div>
+                      <a href="{{ hotel.url }}" class="btn btn-secondary mb-3 mr-3 position-absolute bottom-0 end-0 " data-tor="place.center place.bottom">Au dodo!</a>
+                    </div>
+                  </div>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Oup's! Je n'ai pas dormi dans cette ville</td>
             </tr>
         {% endfor %}
         {% endif %}
-        </tbody>
-    </table>
-
+        
+    </section>
 {% endblock %}
