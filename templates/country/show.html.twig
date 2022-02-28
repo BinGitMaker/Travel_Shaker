@@ -3,32 +3,33 @@
 {% block title %}PAYS ou Ile{% endblock %}
 
 {% block body %}
-<h1 class="text-center my-5">{{ country.name }}</h1>
-
-<section class="containertop container">
-    <h3>Durée du séjour : {{ country.duration }} jours</h3>
-<div class="countrymap">
-    <img src="{{ country.picture }}" class="img-fluid" />
-</div>
-<div class-"countrycities">
-    <div class="words">
-        <ul>
-            <li>{{ country.hello }}</li>
-            <li>{{ country.thanku }}</li>
-            <li>{{ country.bye }}</li>
-        </ul>
-    </div>
+<h1 class="text-center text-secondary text-uppercase my-5">{{ country.name }}</h1>
+<section class="d-flex container">
+    <section class="containerLeft col-lg-6 ">
+        <div class="countrymap">
+            <img src="{{ country.picture }}" class="img-fluid" />
+        </div>
+    </section>
+    <section class-"containerRight">
+        <div class="words d-flex justify-content-lg-around">
+            <p >{{ country.hello }}</p>
+            <p class="">{{ country.thanku }}</p>
+            <p>{{ country.bye }}</p>
+        </div>
     {# <ul>
     {% for city in country %}
     <li class="cities">{{ city.name }}</li>
     {% endfor %}
     </ul> #}
-</div>
+    </section>
 </section>
-<section class="containermiddle container">
-    <ul>
-        <li>{{ country.diving }}</li>
-    </ul>
+<section class="containerBelow container">
+    <div>
+        {# <p>Dernière visite : {{ country.date }}</p> #}
+        <p>Durée du séjour : {{ country.duration }} jours</p>
+        <p>{{ country.diving }}</p>
+        <p>{{ country.links }}</p>
+    </div>
     <div class="bodytext">{{ country.content }}</div>
 </section>
 

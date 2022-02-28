@@ -3,27 +3,24 @@
 {% block title %}Activity index{% endblock %}
 
 {% block body %}
-    <h1>Activity index</h1>
+    <p class="h3 my-4">Que faire sur place</p>
 
-    <table class="table">
+    <section class=" text-start m-3">
         {% if city %}
         {% for city, activity in activities %}
-            <tr>
-                <td>{{ activity.id }}</td>
-                <td>{{ activity.name }}</td>
-                <td>{{ activity.duration }}</td>
-                <td>{{ activity.picture }}</td>
-                <td>
-                    <a href="{{ path('activity_show', {'id': activity.id}) }}">show</a>
-                   
-                </td>
-            </tr>
+                <div class="card align-items-center opacity-75 justify-content-center ActivityPic position-relative" alt=" {{ activity.alt }}" style="background-image: url( '{{ activity.picture }}' )">
+                    {# <img class="card-img-top" src="{{ activity.picture }}" alt="Card image cap"> #}
+                    <div class="card-body position-relative p-0">
+                      <div class="card-title h4 text-center text-secondary" data-tor="place.left place.middle">{{ activity.name }}</div>
+                      <div class="card-text text-center" data-tor="place.center place.bottom">Prévoir {{ activity.duration }}heure(s) sur place</div>
+                    </div>
+                  </div>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Oup's! on dirait que je n'ai rien fait d'interressant à raconter ici</td>
             </tr>
         {% endfor %}
         {% endif %}
-        </tbody>
-    </table>
+        
+    </section>
 {% endblock %}

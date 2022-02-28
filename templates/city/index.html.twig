@@ -3,26 +3,20 @@
 {% block title %}City index{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">Programme de visite : </h1>
+    <h1 class="text-center">Programme des visites : </h1>
     
     {% if country %}
     <section class="text-start m-5">
     {% for country, city in cities %}
-    <h2 class="my-3">
-        <a class="text-decoration-none" href="{{ path('city_show', {'id': city.id}) }}">Ville visitée: {{ city.name }}</a>
-    </h2>
-    <h4>Nombre de jours sur place : {{ city.duration }}jours</h4>
-    <div class="citymap">
-        <img src="{{ city.picture }}" class="img-fluid"/>
+    <div class="img-thumbnail col-3 d-flex p-5 align-items-center opacity-75 justify-content-center CityPic position-relative mb-5" alt=" {{ city.alt }}" style="background-image: url( '{{ city.picture }}' )">
+        <h1 class="position-absolute h2 text-light text-center">
+            <a class="text-decoration-none" href="{{ path('city_show', {'id': city.id}) }}">{{ city.name }}<br>
+            <p class="h5">dernière visite: {{ city.date ? city.date|date('Y-m-d') : '' }}</p></a>
+        </h1>
     </div>
-    <ul>
-        <li>{{ city.date ? city.date|date('Y-m-d') : '' }}</li>
-        
-        <li>{{ city.content }}</li>
-    </ul>
     {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Patience! Les villes de ce pays sont en cours de rédaction</td>
             </tr>
     {% endfor %}
     {% endif %}

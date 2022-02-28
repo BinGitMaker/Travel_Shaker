@@ -3,20 +3,20 @@
 {% block title %}Villes{% endblock %}
 
 {% block body %}
-<h1 class="text-center my-5">
+<h1 class="text-center my-5 text-secondary">
     {{ city.country.name }} :
      {{ city.name }}</h1>
 
 <section class="containerleft container">
-<div class="countrymap">
-    <img src="{{ city.picture }}" class="img-fluid" />
+<div class="citymap">
+    <img src="{{ city.picture }}" class="img-fluid mb-3" />
 </div>
 <div class="bodytext">{# {{ city.date }} #}</div>
-<div class="bodytext">{{ city.content }}</div>
+<div class="bodytext mb-3">{{ city.content }}</div>
 </section>
 <section class="containerright container">
-    <h2 class="program">Programme de la ville</h2>
-    <h3 class="duration">{{ city.duration }} jours sur place</h3>
+    <h2 class="program mb-3 text-center">Programme de la ville</h2>
+    <h3 class="duration h5">Temps à prévoir: {{ city.duration }} jour(s) sur place</h3>
     {% include 'activity/index.html.twig' %}
     {% include 'hotel/index.html.twig' %}
     {% include 'resto/index.html.twig' %}
