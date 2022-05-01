@@ -3,14 +3,15 @@
 {% block title %}Resto index{% endblock %}
 
 {% block body %}
-    <p class="h3 my-4">Restaurants testés</p>
+<div>
+    <h3 class="h3 my-4">Restaurants testés</h3>
 
-    <section class=" text-start m-3">
+    <div id="resto" class="row">
         {% if city %}
         {% for city, resto in restos %}
-                <div class="card align-items-center opacity-75 justify-content-center ActivityPic position-relative" alt=" {{ resto.alt }}" style="background-image: url( '{{ resto.picture }}' )">
+                <div class="col-5 col-md-3 col-lg-2 card align-items-center opacity-75 m-1 justify-content-center ActivityPic position-relative" alt=" {{ resto.alt }}" style="background-image: url( '{{ resto.picture }}' )">
                     {# <img class="card-img-top" src="{{ activity.picture }}" alt="Card image cap"> #}
-                    <div class="card-body position-relative p-0">
+                    <div class="card-body position-relative p-0 mx-2">
                       <div class="card-title h4 text-center text-secondary" data-tor="place.left place.middle">{{ resto.name }}</div>
                       <a href="{{ resto.url }}" class="btn btn-secondary" data-tor="place.right place.bottom">Miam</a>
                     </div>
@@ -22,5 +23,6 @@
         {% endfor %}
         {% endif %}
         
-    </section>
+    </div>
+</div>
 {% endblock %}

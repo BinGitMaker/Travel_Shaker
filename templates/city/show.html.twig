@@ -8,18 +8,21 @@
      {{ city.name }}</h1>
 
 <section class="containerleft container">
-<div class="citymap">
-    <img src="{{ city.picture }}" class="img-fluid mb-3" />
-</div>
-<div class="bodytext">{# {{ city.date }} #}</div>
-<div class="bodytext mb-3">{{ city.content }}</div>
+    <div class="citymap">
+        <img src="{{ city.picture }}" class="img-fluid mb-3 h-100" />
+    </div>
+    <div class="bodytext">
+        <p>Dernière visite le{# {{ city.date }} #}</p>
+        <p class="bodytext mb-3">{{ city.content }}</p>
+    </div>
 </section>
+
 <section class="containerright container">
-    <h2 class="program mb-3 text-center">Programme de la ville</h2>
+    <h2 class="program mb-3 text-center">Programme de {{ city.name }}</h2>
     <h3 class="duration h5">Temps à prévoir: {{ city.duration }} jour(s) sur place</h3>
     {% include 'activity/index.html.twig' %}
-    {% include 'hotel/index.html.twig' %}
     {% include 'resto/index.html.twig' %}
+    {% include 'hotel/index.html.twig' %}
      {#<div class-"cityActivity">
         <ul>
         {% for activities in city %}
@@ -43,5 +46,11 @@
     </div> #}
     
 </section>
+
+<div class="">
+    <div class="pt-4 pb-4">
+    <a href="{{ path('country_index') }}">{{ 'Retour à la liste des villes' }}</a>
+    </div>
+</div>
 
 {% endblock %}

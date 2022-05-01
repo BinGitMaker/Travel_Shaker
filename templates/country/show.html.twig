@@ -3,37 +3,64 @@
 {% block title %}PAYS ou Ile{% endblock %}
 
 {% block body %}
-<h1 class="text-center text-secondary text-uppercase my-5">{{ country.name }}</h1>
-<section class="d-flex container">
-    <section class="containerLeft col-lg-6 ">
+<h1 class="text-center text-secondary text-uppercase display-1 mt-4 mb-2 mb-lg-5">{{ country.name }}</h1>
+<div class="container row mx-auto px-0">
+    <div class="containerLeft col-12 col-md-7 mb-3 mb-lg-4">
         <div class="countrymap">
-            <img src="{{ country.picture }}" class="img-fluid" />
+            <img src="{{ country.picture }}" class="img-fluid w-100 h-100" />
         </div>
-    </section>
-    <section class-"containerRight">
-        <div class="words d-flex justify-content-lg-around">
-            <p >{{ country.hello }}</p>
-            <p class="">{{ country.thanku }}</p>
-            <p>{{ country.bye }}</p>
+    </div>
+    <div class="containerRight col-12 col-md-5 ">
+        <h4 class="row mx-0">Comment dit-t-on?</h4>
+        <div class="words d-flex justify-content-between flex-column flex-lg-row">
+            <div class="d-flex flex-lg-column align-items-center">
+                <p class="h2">{{ country.hello }}</p>
+                <p class="h5 d-flex align-items-md-end">- Bonjour</p>
+            </div>
+            
+            <div class="d-flex flex-lg-column align-items-center">
+                <p class="h2">{{ country.thanku }}</p>
+                <p class="h5 d-flex align-items-md-end">- Merci</p>
+            </div>
+            
+            <div class="d-flex flex-lg-column align-items-center">
+                <p class="h2">{{ country.bye }}</p>
+                <p class="h5 d-flex align-items-md-end">- Au revoir</p>
+            </div>
+            
         </div>
-    {# <ul>
-    {% for city in country %}
-    <li class="cities">{{ city.name }}</li>
-    {% endfor %}
-    </ul> #}
-    </section>
-</section>
-<section class="containerBelow container">
+        <div>
+            <h2 class="h4 pt-3 pt-md-4 pt-lg-5">Villes visitées:</h2>
+            <ul class="list-unstyled">
+                {% for country, city in cities %}
+                <li class="cities">
+                    <a class="text-decoration-none" href="{{ path('city_show', {'id': city.id}) }}">  - {{ city.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="containerBelow container">
     <div>
         {# <p>Dernière visite : {{ country.date }}</p> #}
-        <p>Durée du séjour : {{ country.duration }} jours</p>
-        <p>{{ country.diving }}</p>
-        <p>{{ country.links }}</p>
+        <p class="h4">Durée du séjour : {{ country.duration }} jours</p>
+        <p class="h4"><a class="text-decoration-none" href="{{ country.diving }}">Centre de plongée testé</a></p>
+        <p class="h4"><a class="text-decoration-none" href="{{ country.links }}">Plan de route</a></p>
     </div>
-    <div class="bodytext">{{ country.content }}</div>
+    <div class="mb-3 mt-5">
+        <h4>A savoir:</h4>
+        <p class="bodytext">{{ country.content }}</p>
+    </div>
+    <div class="">
+        <div class="pt-4 pb-4">
+        <a href="{{ path('country_index') }}">{{ 'Retour à la liste des pays' }}</a>
+        </div>
+    </div>
+</div>
+<section class="container">
+    {% include 'city/index.html.twig' %}
 </section>
 
-{% include 'city/index.html.twig' %}
 
 
 {% endblock %}

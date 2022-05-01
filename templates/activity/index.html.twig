@@ -3,24 +3,32 @@
 {% block title %}Activity index{% endblock %}
 
 {% block body %}
-    <p class="h3 my-4">Que faire sur place</p>
+<div>
+    <h3 class="h3 my-4">Que faire sur place</h3>
+    
+        <div id="activity" class="row">
+            {% if city %}
+            {% for city, activity in activities %}
+                    <div class="col-5 col-md-3 col-lg-2 card align-items-center opacity-75 m-1 justify-content-center ActivityPic position-relative" alt=" {{ activity.alt }}" style="background-image: url( '{{ activity.picture }}' )">
+                        {# <img class="card-img-top" src="{{ activity.picture }}" alt="Card image cap"> #}
+                        <div class="card-body position-relative p-0 mx-2">
+                          <div class="card-title h4 text-center text-secondary" data-tor="place.left place.middle">{{ activity.name }}</div>
+                            <div class="card-text text-center" data-tor="place.center place.bottom">
+                                <p class="h5">{{ activity.duration }}</p>
+                                <p class="h6">heure(s) sur place</p> 
+                            </div>
+                        </div>
+                      </div>
+            {% else %}
+                <tr>
+                    <td colspan="5">Oup's! Il semblerait que je n'ai rien fait d'interressant à raconter ici</td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+            
+        </div>
+</div>
+   
 
-    <section class=" text-start m-3">
-        {% if city %}
-        {% for city, activity in activities %}
-                <div class="card align-items-center opacity-75 justify-content-center ActivityPic position-relative" alt=" {{ activity.alt }}" style="background-image: url( '{{ activity.picture }}' )">
-                    {# <img class="card-img-top" src="{{ activity.picture }}" alt="Card image cap"> #}
-                    <div class="card-body position-relative p-0">
-                      <div class="card-title h4 text-center text-secondary" data-tor="place.left place.middle">{{ activity.name }}</div>
-                      <div class="card-text text-center" data-tor="place.center place.bottom">Prévoir {{ activity.duration }}heure(s) sur place</div>
-                    </div>
-                  </div>
-        {% else %}
-            <tr>
-                <td colspan="5">Oup's! on dirait que je n'ai rien fait d'interressant à raconter ici</td>
-            </tr>
-        {% endfor %}
-        {% endif %}
-        
-    </section>
+    
 {% endblock %}

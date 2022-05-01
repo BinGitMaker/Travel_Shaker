@@ -3,24 +3,71 @@
 {% block title %}City index{% endblock %}
 
 {% block body %}
+    <section class="container">
     <h1 class="text-center">Programme des visites : </h1>
     
-    {% if country %}
-    <section class="text-start m-5">
+    <div id="carouselControl" class="carousel slide carousel-fade" data-ride="carousel">
+
+         {# Indicators #}
+        <ol class="carousel-indicators">
+            {% for country, city in cities %}
+                {% if loop.first %}
+                    {% set active = 'active' %}
+                {% else %}
+                    {% set active = '' %}
+                {% endif %}
+                <li data-target="#carousel-{{ city.name }}" data-slide-to="{{ loop.index0 }}" class="{{ active }}"></li>
+            {% endfor %}
+        </ol>
+
+
+        {# Wrapper for slides #}
+        <div class="carousel-inner" role="listbox">
+            {% for country, city in cities %} 
+                {% if loop.first %}
+                    {% set active = 'active' %}
+                {% else %}
+                    {% set active = '' %}
+                {% endif %}
+                <div class="item {{ active }}"> 
+                    <img src="{{ city.picture }}" alt="{{ city.alt }}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ city.name }}</h5>
+                    </div>
+                {# <a class="text-decoration-none" href="{{ path('city_show', {'id': city.id}) }}">{{ city.name }}</a> #}
+                </div>      
+            {% endfor %}
+        </div>    
+        
+
+        {# Controls #}
+        <a class="left carousel-control" href="#carouselControl" role="button" data-slide="prev">
+            {# <i class="fa fa-chevron-left"></i> #}
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Précédent</span>
+          </a>
+          <a class="right carousel-control" href="#carouselControl" role="button" data-slide="next">
+            {# <i class="fa fa-chevron-right"></i> #}
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Suivant</span>
+          </a>
+        
+    </div>
+    {# <section class=" m-5 d-flex flex-column flex-lg-row">
     {% for country, city in cities %}
-    <div class="img-thumbnail col-3 d-flex p-5 align-items-center opacity-75 justify-content-center CityPic position-relative mb-5" alt=" {{ city.alt }}" style="background-image: url( '{{ city.picture }}' )">
+    <div class="img-thumbnail col-3 d-flex p-5 align-items-center opacity-75 justify-content-center CityPic position-relative m-2 " alt=" {{ city.alt }}" style="background-image: url( '{{ city.picture }}' )">
         <h1 class="position-absolute h2 text-light text-center">
             <a class="text-decoration-none" href="{{ path('city_show', {'id': city.id}) }}">{{ city.name }}<br>
             <p class="h5">dernière visite: {{ city.date ? city.date|date('Y-m-d') : '' }}</p></a>
         </h1>
-    </div>
-    {% else %}
+    </div>  #}
+    {# {% else %}
             <tr>
                 <td colspan="8">Patience! Les villes de ce pays sont en cours de rédaction</td>
             </tr>
     {% endfor %}
-    {% endif %}
+    {% endif %} #}
 
-    </section>
-
+   {#  </section> #}
+</section>
 {% endblock %}
